@@ -4,7 +4,6 @@ import com.sun.source.util.JavacTask;
 import com.sun.source.util.TaskEvent;
 import com.sun.source.util.TaskListener;
 import org.transparent.bermuda.transform.Transformer;
-import org.transparent.bermuda.util.SourceProcessor;
 import org.transparent.bermuda.util.Stage;
 
 import java.io.IOException;
@@ -13,14 +12,11 @@ import java.util.function.Function;
 
 public abstract class Plugin implements com.sun.source.util.Plugin {
 	private final String name;
-	private final Set<SourceProcessor> sourceProcessors;
 	private final EnumMap<Stage, List<Transformer<?>>> transformers;
 
 	public Plugin(String name) {
 		this.name = name;
-		this.sourceProcessors = new HashSet<>();
 		this.transformers = new EnumMap<>(Stage.class);
-		applySourceProcessors();
 		apply();
 	}
 
@@ -33,12 +29,9 @@ public abstract class Plugin implements com.sun.source.util.Plugin {
 	@Override
 	public final void init(JavacTask task, String... args) {
 		start(task, args);
-		task.addTaskListener(new TransformListener(task, transformers));
+		if (!transformers.isEmpty())
+			task.addTaskListener(new TransformListener(task, transformers));
 		end();
-	}
-
-	private void applySourceProcessors() {
-
 	}
 
 	protected final void register(Transformer<?> transformer) {

@@ -9,8 +9,6 @@ public final class TestPlugin extends Plugin {
 
 	@Override
 	public void apply() {
-		System.out.println("Oops, there goes your methods!\nI'll send this field your way to compensate.");
-		register(new MethodRemover());
-		register(new FieldInjector());
+
 	}
 }

@@ -1,4 +1,4 @@
-package org.transparent.bermuda.transform;
+package org.transparent.bermuda.asm;
 
 import com.sun.tools.javac.code.Symbol.ClassSymbol;
 import com.sun.tools.javac.jvm.ClassWriter;
@@ -15,7 +15,11 @@ import java.lang.reflect.Field;
 import java.util.Objects;
 import java.util.Optional;
 
-final class Utils {
+final class ByteUtils {
+	private ByteUtils() {
+		throw new InstantiationError("Cannot instantiate utility class");
+	}
+
 	private static final Field poolbufField;
 
 	static byte[] getClassBytes(ClassWriter cw) {
