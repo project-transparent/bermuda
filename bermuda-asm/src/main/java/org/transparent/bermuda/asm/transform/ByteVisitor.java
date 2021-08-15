@@ -1,4 +1,4 @@
-package org.transparent.bermuda.asm;
+package org.transparent.bermuda.asm.transform;
 
 public abstract class ByteVisitor extends ByteTransformer {
 	@Override

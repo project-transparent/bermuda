@@ -1,13 +1,11 @@
-package org.transparent.bermuda.ast;
+package org.transparent.bermuda.ast.transform;
 
 import com.sun.source.util.JavacTask;
 import com.sun.source.util.TaskEvent;
 import com.sun.tools.javac.api.BasicJavacTask;
 import com.sun.tools.javac.tree.JCTree;
-import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.tree.TreeTranslator;
 import com.sun.tools.javac.util.Context;
-import com.sun.tools.javac.util.Names;
 import org.transparent.bermuda.transform.BaseTransformer;
 import org.transparent.bermuda.util.Stage;
 import org.transparent.bermuda.ast.util.TreeFactory;
@@ -27,9 +25,7 @@ public abstract class TreeTransformer
 	@Override
 	public void transform(JavacTask task, TaskEvent e) {
 		final Context ctx = ((BasicJavacTask) task).getContext();
-		final TreeMaker maker = TreeMaker.instance(ctx);
-		final Names names = Names.instance(ctx);
-		factory = new TreeFactory(maker, names);
+		factory = TreeFactory.instance(ctx);
 		result = transform((JCCompilationUnit) e.getCompilationUnit());
 	}
 

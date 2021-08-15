@@ -1,4 +1,4 @@
-package org.transparent.bermuda.asm;
+package org.transparent.bermuda.asm.transform;
 
 import com.sun.source.util.JavacTask;
 import com.sun.source.util.TaskEvent;

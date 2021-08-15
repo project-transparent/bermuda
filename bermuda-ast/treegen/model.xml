@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<model>
+    <import>java.util.List</import>
+    <tree name="BMCompilationUnit">
+        <field type="List&lt;BMAnnotation&gt;" name="annotations"/>
+        <field type="String" name="packageName"/>
+    </tree>
+    <tree name="BMAnnotation">
+
+    </tree>
+</model>

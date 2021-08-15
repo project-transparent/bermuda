@@ -1,4 +1,4 @@
-package org.transparent.bermuda.ast;
+package org.transparent.bermuda.ast.transform;
 
 import com.sun.tools.javac.tree.JCTree;
 

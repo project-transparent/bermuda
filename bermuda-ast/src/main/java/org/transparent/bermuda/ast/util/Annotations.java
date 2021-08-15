@@ -1,6 +1,7 @@
 package org.transparent.bermuda.ast.util;
 
 import com.sun.tools.javac.util.Name;
+import org.transparent.bermuda.ast.tree.BMCompilationUnit;
 
 import java.lang.annotation.Annotation;
 import java.util.List;

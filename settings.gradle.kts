@@ -14,4 +14,5 @@ include("bermuda-test:plugin")
 findProject(":bermuda-test:plugin")?.name = "plugin"
 include("bermuda-test:impl")
 findProject(":bermuda-test:impl")?.name = "impl"
-include("bermuda-source")
+include("bermuda-ast:treegen")
+findProject(":bermuda-ast:treegen")?.name = "treegen"

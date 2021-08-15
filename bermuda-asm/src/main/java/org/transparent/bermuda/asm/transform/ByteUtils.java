@@ -1,4 +1,4 @@
-package org.transparent.bermuda.asm;
+package org.transparent.bermuda.asm.transform;
 
 import com.sun.tools.javac.code.Symbol.ClassSymbol;
 import com.sun.tools.javac.jvm.ClassWriter;
