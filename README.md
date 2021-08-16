@@ -1,8 +1,10 @@
-[![Bermuda](https://raw.githubusercontent.com/project-transparent/bermuda/master/bermuda.png?token=AGX76VQSKJ45FPKIPV2EZX3BDB6BK)](https://github.com/project-transparent/bermuda)
+[![Bermuda](https://raw.githubusercontent.com/project-transparent/bermuda/master/bermuda.png)](https://github.com/project-transparent/bermuda)
 
 ## **Bermuda** is a modular framework for making powerful Javac compiler plugins.
 
-***put shields.io badges here***
+[![MIT License](https://img.shields.io/github/license/project-transparent/bermuda?style=flat-square)](https://github.com/project-transparent/bermuda/blob/master/LICENSE)
+[![Open Issues](https://img.shields.io/github/issues/project-transparent/bermuda?style=flat-square)](https://github.com/project-transparent/bermuda/issues)
+[![Open PRs](https://img.shields.io/github/issues-pr/project-transparent/bermuda?style=flat-square)](https://github.com/project-transparent/bermuda/pulls)
 
 One of the primary goals of *Project Transparent* is providing Java developers with less boilerplate and more free-roam tooling.<br>
 We have provided many different tools working with Javac, but this is the first to truly break new ground.
