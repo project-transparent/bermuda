@@ -2,9 +2,11 @@ package org.transparent.bermuda.ast.util;
 
 import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.Name;
 import com.sun.tools.javac.util.Names;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static com.sun.tools.javac.tree.JCTree.*;
 
@@ -23,6 +25,14 @@ public final class TreeFactory {
 		if (tree == null)
 			tree = new TreeFactory(context);
 		return tree;
+	}
+
+	public JCModifiers mods(long flags) {
+		return maker.Modifiers(flags);
+	}
+
+	public Name name(String name) {
+		return names.fromString(name);
 	}
 
 	public JCExpression id(String id) {
@@ -44,6 +54,12 @@ public final class TreeFactory {
 	public <T> com.sun.tools.javac.util.List<T> list(List<T> oList) {
 		com.sun.tools.javac.util.List<T> list = com.sun.tools.javac.util.List.nil();
 		for (T tree : oList) list = list.append(tree);
+		return list;
+	}
+
+	public <T, R> com.sun.tools.javac.util.List<R> map(List<T> oList, Function<T, R> function) {
+		com.sun.tools.javac.util.List<R> list = com.sun.tools.javac.util.List.nil();
+		for (T tree : oList) list = list.append(function.apply(tree));
 		return list;
 	}
 

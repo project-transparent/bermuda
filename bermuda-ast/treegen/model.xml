@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <model>
     <import>java.util.List</import>
+    <import>com.sun.tools.javac.tree.JCTree</import>
+	<import>com.sun.tools.javac.tree.JCTree.JCExpression</import>
+    <import>com.sun.tools.javac.tree.JCTree.JCBlock</import>
     <tree name="BMCompilationUnit">
         <field type="List&lt;BMAnnotation&gt;" name="annotations"/>
         <field type="String" name="packageName"/>
+		<field type="List&lt;BMTree&gt;" name="definitions"/>
     </tree>
     <tree name="BMAnnotation">
-
+		<field type="String" name="name"/>
+		<field type="List&lt;JCExpression&gt;" name="arguments"/>
+    </tree>
+    <tree name="BMClass">
+        <field type="long" name="modifiers"/>
+        <field type="String" name="name"/>
+        <field type="List&lt;BMTypeParameter&gt;" name="typeParameters"/>
+        <field type="JCExpression" name="superclass"/>
+        <field type="List&lt;JCExpression&gt;" name="interfaces"/>
+        <field type="List&lt;BMTree&gt;" name="definitions"/>
+    </tree>
+    <tree name="BMMethod">
+        <field type="long" name="modifiers"/>
+        <field type="List&lt;BMTypeParameter&gt;" name="typeParameters"/>
+        <field type="JCExpression" name="returnType"/>
+        <field type="String" name="name"/>
+        <field type="BMVariable" name="receiver"/>
+        <field type="List&lt;BMVariable&gt;" name="parameters"/>
+        <field type="JCBlock" name="body"/>
+        <field type="List&lt;JCExpression&gt;" name="exceptions"/>
+        <field type="JCExpression" name="defaultValue"/>
+    </tree>
+    <tree name="BMVariable">
+        <field type="long" name="modifiers"/>
+        <field type="JCExpression" name="type"/>
+        <field type="String" name="name"/>
+        <field type="JCExpression" name="initializer"/>
+    </tree>
+    <tree name="BMTypeParameter">
+        <field type="List&lt;BMAnnotation&gt;" name="annotations"/>
+        <field type="String" name="name"/>
+        <field type="List&lt;JCExpression&gt;" name="bounds"/>
     </tree>
 </model>

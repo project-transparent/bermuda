@@ -12,7 +12,6 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.IOException;
-import java.nio.channels.ByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,6 +32,14 @@ public final class Main {
 		if (Files.notExists(trees))
 			Files.createDirectories(trees);
 
+		final CodeWriter cw = new CodeWriter();
+		cw.$("package org.transparent.bermuda.ast.tree;");
+		cw.$n();
+		cw.$r("public interface BMTree {");
+		cw.$("<T> T accept(BMTreeVisitor<T> visitor);");
+		cw.$l("}");
+		write("BMTree", cw.toBytes());
+
 		xml();
 	}
 
@@ -42,6 +49,15 @@ public final class Main {
 
 		final List<String> imports = new ArrayList<>();
 		Tree tree = null;
+
+		CodeWriter tw = new CodeWriter();
+		tw.$("package org.transparent.bermuda.ast.tree;");
+		tw.$n();
+		tw.$r("public interface BMTreeVisitor<T> {");
+		tw.$r("default T visit(BMTree tree) {");
+		tw.$("return tree.accept(this);");
+		tw.$l("}");
+		tw.$n();
 
 		while (reader.hasNext()) {
 			XMLEvent event = reader.nextEvent();
@@ -73,12 +89,16 @@ public final class Main {
 				final EndElement end = event.asEndElement();
 				if (end.getName().getLocalPart().equals("tree")) {
 					if (tree != null) {
+						tw.$("T visit" + tree.name.substring(2) + "(" + tree.name + " tree);");
 						write(imports, tree);
 						tree = null;
 					}
 				}
 			}
 		}
+
+		tw.$l("}");
+		write("BMTreeVisitor", tw.toBytes());
 	}
 
 	private static void write(List<String> imports, Tree tree) throws IOException {
@@ -125,19 +145,25 @@ public final class Main {
 			cw.$n();
 		});
 		// Setters
-		for (int i = 0; i < fSize; i++) {
-			final Field field = fields.get(i);
+		for (Field field : fields) {
 			cw.$r("public void set" + capitalize(field.name) + "(" + field.type + " " + field.name + ") {");
 			cw.$("this." + field.name + " = " + field.name + ";");
 			cw.$l("}");
-			if (i != fSize - 1)
-				cw.$n();
+			cw.$n();
 		}
+		// Visitor method
+		cw.$r("public <T> T accept(BMTreeVisitor<T> visitor) {");
+		cw.$("return visitor.visit" + tree.name.substring(2) + "(this);");
+		cw.$l("}");
 		cw.$l("}");
 
+		write(tree.name, cw.toBytes());
+	}
+
+	public static void write(String name, byte[] bytes) throws IOException {
 		Files.write(
-				trees.resolve(tree.name + ".java"),
-				cw.toBytes(),
+				trees.resolve(name + ".java"),
+				bytes,
 				WRITE, CREATE, TRUNCATE_EXISTING
 		);
 	}
